@@ -28,7 +28,7 @@ public class HostBlackListsThreats extends Thread {
 
     public void chequeo(String ip, int inicio, int fin){
         HostBlacklistsDataSourceFacade skds= HostBlacklistsDataSourceFacade.getInstance();
-        for (int i=inicio;i<fin;i++){
+        for (int i = inicio; i < fin; i++){
             contadorListas++;
 
             if (skds.isInBlackListServer(i, ip)){

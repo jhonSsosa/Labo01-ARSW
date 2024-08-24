@@ -21,6 +21,7 @@ public class HostBlackListsValidator {
 
     private static final int BLACK_LIST_ALARM_COUNT=5;
 
+
     /**
      * Check the given host's IP address in all the available black lists,
      * and report it as NOT Trustworthy when such IP was reported in at least
@@ -32,30 +33,34 @@ public class HostBlackListsValidator {
      * @return  Blacklists numbers where the given host's IP address was found.
      */
     public List<Integer> checkHost(String ipaddress, int numHilos){
+        
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
         int ocurrencesCount=0;
         List<HostBlackListsThreats> hilos = new ArrayList<>();
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
 
+
         int checkedListsCount=0;
         int extra = 0;
 
-        int range = skds.getRegisteredServersCount()/numHilos;
-        int mod = skds.getRegisteredServersCount()%numHilos;
+        int rango = skds.getRegisteredServersCount() / numHilos;
+        int mod = skds.getRegisteredServersCount() % numHilos;
 
-        for(int i =0;i<numHilos;i++) {
-            int ini = range*i;
-            int fin = range*(i+1);
+        for(int i = 0; i < numHilos; i++) {
+            int ini = rango * i;
+            int fin = rango * (i+1);
             HostBlackListsThreats busqueda = new HostBlackListsThreats(ipaddress,ini,fin);
             hilos.add(busqueda);
             busqueda.start();
             extra = fin;
         }
+
         if(mod != 0){
             HostBlackListsThreats busqueda = new HostBlackListsThreats(ipaddress,extra,extra+mod);
             hilos.add(busqueda);
             busqueda.start();
         }
+
         for (HostBlackListsThreats hilo : hilos) {
             try {
                 hilo.join();
@@ -66,6 +71,7 @@ public class HostBlackListsValidator {
                 e.printStackTrace();
             }
         }
+
 
         if (ocurrencesCount>=BLACK_LIST_ALARM_COUNT){
             skds.reportAsNotTrustworthy(ipaddress);
@@ -82,6 +88,8 @@ public class HostBlackListsValidator {
     
     private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());
     
+
+
 
 
 }

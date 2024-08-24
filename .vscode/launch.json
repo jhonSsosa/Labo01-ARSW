@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CountThreadsMain",
+            "request": "launch",
+            "mainClass": "edu.eci.arsw.threads.CountThreadsMain",
+            "projectName": "PiDigits"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "edu.eci.arsw.blacklistvalidator.Main",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Pruebas",
+            "request": "launch",
+            "mainClass": "edu.eci.arsw.spamkeywordsdatasource.Pruebas"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}

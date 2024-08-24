@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package edu.eci.arsw.threads;
-import java.lang.Thread;
 
 /**
  *
