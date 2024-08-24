@@ -35,12 +35,12 @@ public class HostBlackListsValidator {
     public List<Integer> checkHost(String ip, int nHilos){
         
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
-        int ocurrencesCount=0;
+        int ocurrencesCount = 0;
         List<HostBlackListsThreats> hilos = new ArrayList<>();
-        HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
+        HostBlacklistsDataSourceFacade skds = HostBlacklistsDataSourceFacade.getInstance();
 
 
-        int checkedListsCount=0;
+        int checkedListsCount = 0;
         int extra = 0;
 
         int rango = skds.getRegisteredServersCount() / nHilos;
@@ -48,7 +48,7 @@ public class HostBlackListsValidator {
 
         for(int i = 0; i < nHilos; i++) {
             int ini = rango * i;
-            int fin = rango * (i+1);
+            int fin = rango * (i + 1);
             HostBlackListsThreats busqueda = new HostBlackListsThreats(ip, ini, fin);
             hilos.add(busqueda);
             busqueda.start();
