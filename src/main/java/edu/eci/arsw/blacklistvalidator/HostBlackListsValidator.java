@@ -32,7 +32,7 @@ public class HostBlackListsValidator {
      * @param ipaddress suspicious host's IP address.
      * @return  Blacklists numbers where the given host's IP address was found.
      */
-    public List<Integer> checkHost(String ipaddress, int numHilos){
+    public List<Integer> checkHost(String ip, int nHilos){
         
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
         int ocurrencesCount=0;
@@ -43,20 +43,20 @@ public class HostBlackListsValidator {
         int checkedListsCount=0;
         int extra = 0;
 
-        int rango = skds.getRegisteredServersCount() / numHilos;
-        int mod = skds.getRegisteredServersCount() % numHilos;
+        int rango = skds.getRegisteredServersCount() / nHilos;
+        int mod = skds.getRegisteredServersCount() % nHilos;
 
-        for(int i = 0; i < numHilos; i++) {
+        for(int i = 0; i < nHilos; i++) {
             int ini = rango * i;
             int fin = rango * (i+1);
-            HostBlackListsThreats busqueda = new HostBlackListsThreats(ipaddress,ini,fin);
+            HostBlackListsThreats busqueda = new HostBlackListsThreats(ip, ini, fin);
             hilos.add(busqueda);
             busqueda.start();
             extra = fin;
         }
 
         if(mod != 0){
-            HostBlackListsThreats busqueda = new HostBlackListsThreats(ipaddress,extra,extra+mod);
+            HostBlackListsThreats busqueda = new HostBlackListsThreats(ip, extra, extra + mod);
             hilos.add(busqueda);
             busqueda.start();
         }
@@ -74,10 +74,10 @@ public class HostBlackListsValidator {
 
 
         if (ocurrencesCount>=BLACK_LIST_ALARM_COUNT){
-            skds.reportAsNotTrustworthy(ipaddress);
+            skds.reportAsNotTrustworthy(ip);
         }
         else{
-            skds.reportAsTrustworthy(ipaddress);
+            skds.reportAsTrustworthy(ip);
         }                
         
         LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
